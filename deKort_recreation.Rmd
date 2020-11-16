@@ -20,6 +20,26 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ###Step 3: Loading data and packages
 ```{r Loading data, include=TRUE, message=FALSE}
+#install.packages("Plasticity")
+#library("Plasticity")
+library("tidyverse")
+library("ggplot2")
+library("magrittr")
+library("knitr")
 
+full_dataset<-read_csv("./data/Dryad_JEcol-2019-0718.csv")
 
 ```
+-I ran into a problem while trying to install the Plasticity package (code commented out). It gave me the error "Warning in install.packages :
+  package ‘Plasticity’ is not available (for R version 4.0.2)".  
+-I googled "r package plasticity" and the first result was this Github page (https://github.com/ameztegui/Plasticity) for the package. In the readme file was different instruction for loading the package:
+```{r Installing Plasticity package, include=TRUE, message=FALSE}
+library("devtools")
+#devtools::install_github("ameztegui/Plasticity")
+
+#Dependencies I did not have installed
+library("agricolae")
+library("psych")
+```
+-After installing the devtools package, the line of code provided in the readme file to install the Plasticity package worked! It is commented out to allow for knitting to PDF, but the # should be removed to install the package and run the code.
+-The readme file also had a section for dependencies to run the Plasticity package, so above I installed the packages I did not already have installed.  
