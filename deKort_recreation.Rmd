@@ -1,0 +1,25 @@
+---
+title: "deKort 2020 Recreation, Figure 2"
+author: "Jill Syrotchen"
+date: "11/16/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+###Step 1: locating data
+-Finding the data was extremely easy - all I needed to do was click on the URL to the DRYAD repository that the authors put in the Data Availability section near the end of the paper. In the repository was a single .xlsx file that contained the full dataset.  
+-Code was not available.  
+-The paper did mention specific R packages used to analyze results - in this case, the package "Plasticity" - but offered no more than a mention.
+
+###Step 2: Github and loading data
+-I created a Github repository for this recreation project (https://github.com/jillsyro/DST-deKort).  
+-I converted the .xlsx file with data to a .csv file and added it to my project folder to bring in the data.  
+
+###Step 3: Loading data and packages
+```{r Loading data, include=TRUE, message=FALSE}
+
+
+```
