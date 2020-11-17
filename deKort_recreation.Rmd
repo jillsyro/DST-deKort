@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ###Step 2: Github and loading data
 -I created a Github repository for this recreation project (https://github.com/jillsyro/DST-deKort).  
--I converted the .xlsx file with data to a .csv file and added it to my project folder to bring in the data.  
+-I converted the .xlsx file with data to a .csv file and added it to my project folder to bring in the data.   
 
 ###Step 3: Loading data and packages
 ```{r Loading data, include=TRUE, message=FALSE}
@@ -35,11 +35,41 @@ full_dataset<-read_csv("./data/Dryad_JEcol-2019-0718.csv")
 -I googled "r package plasticity" and the first result was this Github page (https://github.com/ameztegui/Plasticity) for the package. In the readme file was different instruction for loading the package:
 ```{r Installing Plasticity package, include=TRUE, message=FALSE}
 library("devtools")
-#devtools::install_github("ameztegui/Plasticity")
+devtools::install_github("ameztegui/Plasticity")
+library("Plasticity")
 
 #Dependencies I did not have installed
 library("agricolae")
 library("psych")
 ```
--After installing the devtools package, the line of code provided in the readme file to install the Plasticity package worked! It is commented out to allow for knitting to PDF, but the # should be removed to install the package and run the code.
+-After installing the devtools package, the line of code provided in the readme file to install the Plasticity package worked! It is commented out to allow for knitting to PDF, but the # should be removed in line 38 to run the code.  
 -The readme file also had a section for dependencies to run the Plasticity package, so above I installed the packages I did not already have installed.  
+-The repository for Plasticity is well-organized and annotated with examples of how to run code producing figures and results.  
+
+###Step 4: Data analysis
+```{r Attempting to use Plasticity, include=TRUE, message=FALSE}
+library("sciplot")
+#growth_plasticity2 <- rdpi(full_dataset,Pop, EarlyGrowth, Treatment)
+#growth_plasticity <- rdpi_matrix(full_dataset,EarlyGrowth, North_to_South)
+
+```
+-An error when trying to run rdpi alerted me that I also needed the package sciplot.  
+-No matter what I put in the code, I can't get the rdpi command to run, only rdpi_matrix.  
+-Running "growth_plasticity <- rdpi_matrix(full_dataset,EarlyGrowth,North_to_South)" just made a 708,337 element long vector... so that's obviously not the right line of code. A good sign is that all results are from 0-1, which they should be. Maybe the authors split the data into subsets and then ran that through the rdpi_matrix command?  
+-Weirdly, I found in the supplimental Excel file provided at the DOI access page to the paper (https://besjournals.onlinelibrary.wiley.com/doi/abs/10.1111/1365-2745.13365 under the "Supporting Information" tab) and NOT in the DRYAD repository, more data provided than just the full dataset. That excel file also has their results from all RDPI calculations. But still nowhere do they explain HOW they got all those results...  
+-At this point with their RDPI data, I think it would be pretty easy to recreate their figures. But I still want to see if I can get the Plasticity package to work for me to reproduce their results.  
+-I decided to research the foundation of RDPI in Valladares et al. (2006) to see if I could understand the math behind the rdpi command. I found this equation:  
+
+$RDPI = \Sigma(d_{ij} \to i^{\prime}j^{\prime}/(x_{i^{\prime}j^{\prime}} + x_{ij}))/n$  
+
+where  
+$d_{ij}$ = pairwise distance among trait values  
+$i$ (and $i^{\prime}$) = different environments  
+$j$ (and $j^{\prime}$) = individuals sampled  
+$x$ = a given trait  
+$n$ = the total number of distances  
+
+```{r Data wrangling}
+
+
+```
