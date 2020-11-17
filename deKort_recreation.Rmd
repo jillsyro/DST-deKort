@@ -44,7 +44,7 @@ library("psych")
 ```
 -After installing the devtools package, the line of code provided in the readme file to install the Plasticity package worked! It is commented out to allow for knitting to PDF, but the # should be removed in line 38 to run the code.  
 -The readme file also had a section for dependencies to run the Plasticity package, so above I installed the packages I did not already have installed.  
--The repository for Plasticity is well-organized and annotated with examples of how to run code producing figures and results.  
+-The repository for Plasticity is well-organized and sparsely annotated with brief examples of how to run code producing figures and results.  
 
 ###Step 4: Data analysis
 ```{r Attempting to use Plasticity, include=TRUE, message=FALSE}
@@ -58,7 +58,7 @@ library("sciplot")
 -Running "growth_plasticity <- rdpi_matrix(full_dataset,EarlyGrowth,North_to_South)" just made a 708,337 element long vector... so that's obviously not the right line of code. A good sign is that all results are from 0-1, which they should be. Maybe the authors split the data into subsets and then ran that through the rdpi_matrix command?  
 -Weirdly, I found in the supplimental Excel file provided at the DOI access page to the paper (https://besjournals.onlinelibrary.wiley.com/doi/abs/10.1111/1365-2745.13365 under the "Supporting Information" tab) and NOT in the DRYAD repository, more data provided than just the full dataset. That excel file also has their results from all RDPI calculations. But still nowhere do they explain HOW they got all those results...  
 -At this point with their RDPI data, I think it would be pretty easy to recreate their figures. But I still want to see if I can get the Plasticity package to work for me to reproduce their results.  
--I decided to research the foundation of RDPI in Valladares et al. (2006) to see if I could understand the math behind the rdpi command. I found this equation:  
+-I decided to research the foundation of RDPI in Valladares et al. (2006) to see if I could understand the math behind the rdpi command. They provide this equation:  
 
 $RDPI = \Sigma(d_{ij} \to i^{\prime}j^{\prime}/(x_{i^{\prime}j^{\prime}} + x_{ij}))/n$  
 
