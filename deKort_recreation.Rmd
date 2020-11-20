@@ -3,6 +3,7 @@ title: "deKort 2020 Recreation, Figure 2"
 author: "Jill Syrotchen"
 date: "11/16/2020"
 output: pdf_document
+bibliography: bibliography.bib
 ---
 
 ```{r setup, include=FALSE}
@@ -69,7 +70,14 @@ $j$ (and $j^{\prime}$) = individuals sampled
 $x$ = a given trait  
 $n$ = the total number of distances  
 
-```{r Data wrangling}
+-This equation seems like it would be hard for me to write my own function for at my current coding skill level. I think at this point I've reached an impasse for data analysis.  
+-I will go ahead and use their provided RDPI data to see if the figures I make end up being the same as the figures in the paper.
 
+##Summary
+-Due to the availability of RDPI data provided by the authors, I concluded that I would easily be able to reproduce their figures.
+-I was not able to reproduce their data analysis techniques, which is a great detriment to the reproducibility of the paper as a whole.  
 
-```
+##References
+[@Ameztegui2017]  
+[@De-Kort2020-wy]  
+[@Valladares2006-sp]
