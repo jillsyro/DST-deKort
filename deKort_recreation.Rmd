@@ -24,6 +24,7 @@ knitr::opts_chunk$set(echo = TRUE)
 #install.packages("Plasticity")
 #library("Plasticity")
 library("tidyverse")
+library("dplyr")
 library("ggplot2")
 library("magrittr")
 library("knitr")
@@ -73,9 +74,80 @@ $n$ = the total number of distances
 -This equation seems like it would be hard for me to write my own function for at my current coding skill level. I think at this point I've reached an impasse for data analysis.  
 -I will go ahead and use their provided RDPI data to see if the figures I make end up being the same as the figures in the paper.
 
+```{r Loading RDPI data, include = TRUE, message = FALSE}
+RDPIdataset <- read_csv("./data/jec13365-sup-0002-tables1-s5.csv")
+RDPI_SUM <- RDPIdataset %>% group_by(Elevation) %>% dplyr::summarize(
+  SLA = mean(`SLA`, na.rm = TRUE), 
+  Runnering = mean(`Runnering`, na.rm = TRUE), 
+  Flowering = mean(`Flowering`, na.rm = TRUE), 
+  Stomata = mean(`Stomata`, na.rm = TRUE), 
+  SLA_se = sd(`SLA`, na.rm = TRUE)/sqrt(length(na.omit(`SLA`))),
+  Runnering_se = sd(`Runnering`, na.rm=TRUE)/sqrt(length(na.omit(`Runnering`))),
+  Flowering_se = sd(`Flowering`, na.rm=TRUE)/sqrt(length(na.omit(`Flowering`))),
+  Stomata_se = sd(`Stomata`, na.rm = TRUE)/sqrt(length(na.omit(`Stomata`)))
+  )
+RDPI_NS <- RDPIdataset %>% group_by(North_to_South) %>% dplyr::summarize(
+  SLA = mean(`SLA`, na.rm = TRUE), 
+  Runnering = mean(`Runnering`, na.rm = TRUE), 
+  Flowering = mean(`Flowering`, na.rm = TRUE), 
+  Stomata = mean(`Stomata`, na.rm = TRUE), 
+  SLA_se = sd(`SLA`, na.rm = TRUE)/sqrt(length(na.omit(`SLA`))),
+  Runnering_se = sd(`Runnering`, na.rm=TRUE)/sqrt(length(na.omit(`Runnering`))),
+  Flowering_se = sd(`Flowering`, na.rm=TRUE)/sqrt(length(na.omit(`Flowering`))),
+  Stomata_se = sd(`Stomata`, na.rm = TRUE)/sqrt(length(na.omit(`Stomata`)))
+  )
+#Standard error calculations aren't working here... not sure why.
+
+#Just going to plot mean data without error bars for right now.
+sla_graph <- ggplot(data=RDPI_SUM)+   
+  aes(x=Elevation)+
+  aes(y=SLA)+
+  geom_point()+
+  geom_smooth(method = "lm")+
+  xlab("Elevation")+
+  ylab("SLA Plasticity")+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+plot(sla_graph)
+
+runnering_graph <- ggplot(data=RDPI_NS)+   
+  aes(x=North_to_South)+
+  aes(y=Runnering)+
+  geom_point()+
+  geom_smooth(method = "lm")+
+  xlab("Aspect (N to S)")+
+  ylab("Runnering Plasticity")+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+plot(runnering_graph)
+
+flowering_graph <- ggplot(data=RDPI_NS)+   
+  aes(x=North_to_South)+
+  aes(y=Flowering)+
+  geom_point()+
+  geom_smooth(method = "lm")+
+  xlab("Aspect (N to S)")+
+  ylab("Flowering Plasticity")+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+plot(flowering_graph)
+
+stomata_graph <- ggplot(data=RDPI_NS)+   
+  aes(x=North_to_South)+
+  aes(y=Stomata)+
+  geom_point()+
+  geom_smooth(method = "lm")+
+  xlab("Aspect (N to S)")+
+  ylab("Stomatal Plasticity")+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+plot(stomata_graph)
+```
+
 ##Summary
--Due to the availability of RDPI data provided by the authors, I concluded that I would easily be able to reproduce their figures.
--I was not able to reproduce their data analysis techniques, which is a great detriment to the reproducibility of the paper as a whole.  
+-I was not able to reproduce their data analysis techniques for RDPI, which is a great detriment to the reproducibility of the paper as a whole.  
+-I was able to (generally) reproduce each of the four graphs using the authors' supplemented RDPI data, minus issues with my error bar code.  
+-I would not give this paper a high score for reproducibility due to the issues I encountered when attepmpting to use the R package Plasticity. 
 
 ##References
 [@Ameztegui2017]  
